@@ -1,0 +1,26 @@
+from django.contrib import admin
+
+# Register your models here.
+from .models import Aluno, Curso, Disciplina
+
+@admin.register(Curso)
+class CursoAdmin(admin.ModelAdmin):
+    list_display = ("nome", "carga_horaria", "ativo", "criado_em")
+    search_fields = ("nome", "descricao")
+    list_filter = ("ativo",)
+
+@admin.register(Aluno)
+class AlunoAdmin(admin.ModelAdmin):
+    list_display = ("nome", "matricula", "email", "curso", "ativo")
+    search_fields = ("nome", "matricula", "email")
+    list_filter = ("ativo", "curso")
+    list_select_related = ("curso",)
+
+
+@admin.register(Disciplina)
+class DisciplinaAdmin(admin.ModelAdmin):
+    list_display = ("nome", "codigo", "carga_horaria", "ativa", "curso")
+    search_fields = ("nome", "codigo")
+    list_filter = ("ativa", "curso")
+    list_select_related = ("curso",)
+
